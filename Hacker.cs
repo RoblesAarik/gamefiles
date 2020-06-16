@@ -73,8 +73,9 @@ public class Hacker : MonoBehaviour
 
     void StartGame() {
             currentScreen = Screen.Password;
+            Terminal.ClearScreen();
             Terminal.WriteLine("You have chosen level " + level) ;
-            Terminal.WriteLine("Please enter password ") ;
+            Terminal.WriteLine("Enter password, hint: " + password.Anagram()) ;
            
     }
 
@@ -82,12 +83,37 @@ public class Hacker : MonoBehaviour
         if (input.ToLower() == password) {
             Terminal.WriteLine("You Have beaten level " + level);
             Terminal.WriteLine("Type menu and choose new level");
+            DisplayWinScreen();
         } else {
             Terminal.WriteLine("Try Again");
             currentScreen = Screen.Password;
         }
     }
 
+    void DisplayWinScreen() {
+        currentScreen = Screen.Win;
+        Terminal.ClearScreen();
+        ShowLevelReward();
+    }
+
+    void ShowLevelReward() {
+
+        switch (level)
+        {
+            case 1:
+                Terminal.WriteLine("The Flash is Barry Allen");
+                Terminal.WriteLine("Type Menu to choose new level");
+                break;
+            case 2:
+                Terminal.WriteLine("Batman is Bruce Wayne");
+                Terminal.WriteLine("Type Menu to choose new level");
+                break;
+            case 3: 
+                Terminal.WriteLine("The Hall of Justice isn't the real headquarters");
+                Terminal.WriteLine("Type Menu to choose new level");
+                break;
+        }
+    }
 
     // Update is called once per frame
     void Update()
